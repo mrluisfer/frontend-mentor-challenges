@@ -1,6 +1,5 @@
 import { Checkbox } from "@components/ui/checkbox";
 import { Label } from "@components/ui/label";
-import type { CheckedState } from "@radix-ui/react-checkbox";
 import type { Dispatch, SetStateAction } from "react";
 
 type FilterTagProps = {
@@ -11,7 +10,7 @@ type FilterTagProps = {
 export default function FilterTag({ tag, setSelectedTags, selectedTags }: FilterTagProps) {
 	const tagId = `popover-${tag}`;
 
-	const handleCheckedChange = (checked: CheckedState) => {
+	const handleCheckedChange = (checked: boolean) => {
 		if (checked) {
 			setSelectedTags((prevSelected) => [...prevSelected, tag]);
 			return;

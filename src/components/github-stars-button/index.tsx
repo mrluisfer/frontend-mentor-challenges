@@ -47,27 +47,27 @@ export default function GitHubStarsButton() {
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger>
+				<TooltipTrigger asChild>
 					<Button
 						className="bg-[#181717] text-white filter transition-all hover:bg-[#181717] active:scale-95 dark:bg-white dark:text-black dark:hover:bg-neutral-50"
-						asChild
+						render={
+							<a
+								href="https://github.com/mrLuisFer/js-challenges-hub"
+								target="_blank"
+								rel="noopener noreferrer"
+							/>
+						}
 					>
-						<a
-							href="https://github.com/mrLuisFer/js-challenges-hub"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<div className="mr-1 flex h-full items-center gap-2">
-								<GitHubStar />
-								<Separator className="h-full w-px opacity-20" />
-							</div>
-							<span className="flex items-baseline gap-2">
-								Stars
-								<span className="text-xs dark:text-neutral-500">
-									{repositoryData?.stargazers_count}
-								</span>
+						<div className="mr-1 flex h-full items-center gap-2">
+							<GitHubStar />
+							<Separator className="h-full w-px opacity-20" />
+						</div>
+						<span className="flex items-baseline gap-2">
+							Stars
+							<span className="text-xs dark:text-neutral-500">
+								{repositoryData?.stargazers_count}
 							</span>
-						</a>
+						</span>
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent className="flex max-w-xs flex-col gap-2 border bg-white text-black">
