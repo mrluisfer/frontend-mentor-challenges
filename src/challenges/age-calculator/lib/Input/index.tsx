@@ -1,82 +1,56 @@
-import { type ChangeEvent, type Dispatch, type SetStateAction, useMemo, useState } from "react";
-import { labels, maxValues, minValues } from "../../contants/index.js";
+import { type ChangeEvent } from "react";
+import { maxLengths, placeholders } from "../../contants/index.js";
 import clsx from "clsx";
+import type { TDateField } from "../../types";
 
 type InputProps = {
-	label: string;
+	label: TDateField;
 	error?: string;
 	// eslint-disable-next-line no-unused-vars
-	setValue: (value: number) => void;
-	setShowAge?: Dispatch<SetStateAction<boolean>>;
-	defaultValue?: number;
-	value: number | undefined;
+	setValue: (value: string) => void;
+	value: string;
 };
 
-export default function Input({
-	setValue,
-	label,
-	error,
-	setShowAge,
-	defaultValue,
-	value,
-}: InputProps) {
-	const [showError, setShowError] = useState(false);
-
-	const isDay = useMemo(() => label === labels.day, [label]);
-	const isMonth = useMemo(() => label === labels.month, [label]);
-	const isYear = useMemo(() => label === labels.year, [label]);
-
-	const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldType: string) => {
-		const inputValue = +event.target.value;
-		setShowError(false);
-		setShowAge?.(false);
-
-		const validators = {
-			[labels.day]: () => inputValue <= maxValues.day,
-			[labels.month]: () => inputValue <= maxValues.month,
-			[labels.year]: () => inputValue <= maxValues.year,
-		};
-
-		if (validators[fieldType]?.()) {
-			setValue(inputValue);
-		}
-
-		const isDayError = isDay && (inputValue < 1 || inputValue > maxValues.day);
-		const isMonthError = isMonth && (inputValue < 1 || inputValue > maxValues.month);
-		const isYearError = isYear && (inputValue < 1900 || inputValue > maxValues.year);
-
-		if (isDayError || isMonthError || isYearError) {
-			setShowError(true);
-		}
+export default function Input({ setValue, label, error, value }: InputProps) {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>, fieldType: TDateField) => {
+		const sanitizedValue = event.target.value.replace(/\D/g, "");
+		const nextValue = sanitizedValue.slice(0, maxLengths[fieldType]);
+		setValue(nextValue);
 	};
 
 	return (
-		<div className="flex w-full flex-1 flex-col">
+		<div className="flex w-full flex-col gap-2">
 			<label
 				htmlFor={`${label}-input`}
-				className={clsx("text-xs font-bold uppercase tracking-[3px]", {
-					"text-[#f44336]": showError,
-					"text-[#6f6f6f]": !showError,
+				className={clsx("text-xs font-bold uppercase tracking-[0.22rem]", {
+					"text-[var(--age-light-red)]": error,
+					"text-[var(--age-smokey-grey)]": !error,
 				})}
 			>
 				{label}
 			</label>
 			<input
 				id={`${label}-input`}
-				type="number"
+				type="text"
+				inputMode="numeric"
 				onChange={(event) => handleChange(event, label)}
-				max={maxValues[label]} // day, month, year
-				min={minValues[label]}
-				pattern="\d*"
-				defaultValue={defaultValue}
-				value={value || undefined}
-				className={
-					"w-full rounded-[8px] border p-3 text-xl font-bold text-[#333] outline outline-1 outline-[hsl(0,0%,86%)] selection:bg-[hsl(259,100%,65%)] selection:text-[#fff] focus-visible:outline-[hsl(259,100%,65%)]"
-				}
+				placeholder={placeholders[label]}
+				value={value}
+				aria-invalid={Boolean(error)}
+				aria-describedby={error ? `${label}-error` : undefined}
+				className={clsx(
+					"placeholder:text-[var(--age-smokey-grey)]/70 w-full rounded-lg border border-[var(--age-light-grey)] px-4 py-3 text-[1.25rem] font-bold tracking-[0.01em] text-[var(--age-off-black)] caret-[var(--age-purple)] outline-none transition-colors selection:bg-[var(--age-purple)] selection:text-white focus:border-[var(--age-purple)] sm:text-[2rem]",
+					{
+						"border-[var(--age-light-red)] focus:border-[var(--age-light-red)]": error,
+					}
+				)}
 			/>
-			{showError ? (
-				<span className="color-[hsl(0,100%,67%)] m-0 text-xs font-bold">{error}</span>
-			) : null}
+			<span
+				id={`${label}-error`}
+				className="min-h-4 text-[0.7rem] font-normal italic leading-none text-[var(--age-light-red)] sm:text-xs"
+			>
+				{error}
+			</span>
 		</div>
 	);
 }

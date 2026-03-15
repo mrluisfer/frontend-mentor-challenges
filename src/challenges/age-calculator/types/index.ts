@@ -1,15 +1,17 @@
 export type TDate = {
-	day?: number;
-	month?: number;
-	year?: number;
+	day: string;
+	month: string;
+	year: string;
 };
 
 export type TDatePlurals = {
-	years: number;
-	months: number;
-	days: number;
+	years?: number;
+	months?: number;
+	days?: number;
 };
 
-export interface KeyOfDates extends Required<TDate> {
-	[key: string]: number;
-}
+export type TDateField = keyof TDate;
+
+export type TDateErrors = Partial<Record<TDateField, string>>;
+
+export type KeyOfDates = Record<TDateField, number>;

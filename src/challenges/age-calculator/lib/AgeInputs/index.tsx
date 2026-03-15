@@ -1,39 +1,33 @@
-import type { Dispatch, SetStateAction } from "react";
 import Input from "../Input";
-import type { TDate } from "../../types/index.ts";
+import type { TDate, TDateErrors, TDateField } from "../../types/index.ts";
 
 type AgeInputsProps = {
-	date?: {
-		day?: number;
-		month?: number;
-		year?: number;
-	};
-	setShowAge?: Dispatch<SetStateAction<boolean>>;
-	setDate?: Dispatch<SetStateAction<TDate>>;
+	date: TDate;
+	errors: TDateErrors;
+	// eslint-disable-next-line no-unused-vars
+	onFieldChange: (...args: [TDateField, string]) => void;
 };
-export default function AgeInputs({ date, setShowAge, setDate }: AgeInputsProps) {
+
+export default function AgeInputs({ date, errors, onFieldChange }: AgeInputsProps) {
 	return (
-		<section className="flex w-full flex-row gap-4">
+		<section className="grid w-full grid-cols-3 gap-4 md:max-w-[460px] md:gap-8">
 			<Input
 				label="day"
-				setValue={(value) => setDate?.({ ...date, day: value })}
+				setValue={(value) => onFieldChange("day", value)}
 				value={date?.day}
-				setShowAge={setShowAge}
-				defaultValue={date?.day}
+				error={errors.day}
 			/>
 			<Input
 				label="month"
-				setValue={(value) => setDate?.({ ...date, month: value })}
-				setShowAge={setShowAge}
-				defaultValue={date?.month}
+				setValue={(value) => onFieldChange("month", value)}
 				value={date?.month}
+				error={errors.month}
 			/>
 			<Input
 				label="year"
-				setValue={(value) => setDate?.({ ...date, year: value })}
-				setShowAge={setShowAge}
-				defaultValue={date?.year}
+				setValue={(value) => onFieldChange("year", value)}
 				value={date?.year}
+				error={errors.year}
 			/>
 		</section>
 	);
