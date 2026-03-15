@@ -4,13 +4,13 @@ import './styles/comments-section.css';
 
 export default function CommentsSection({ comment }: { comment: CommentType }) {
 	return (
-		<>
+		<li className="flex w-full list-none flex-col gap-4 md:gap-5">
 			<Comment key={comment.id} as="comment" comment={comment} />
-			<div className="flex-1 flex w-full items-end flex-col gap-4 relative replies">
-				{comment.replies &&
-					comment?.replies.length > 0 &&
-					comment?.replies.map((reply) => <Comment comment={reply} key={reply.id} as="replies" />)}
-			</div>
-		</>
+			{comment.replies && comment.replies.length > 0 ? (
+				<div className="replies flex flex-col gap-4 md:gap-5">
+					{comment.replies.map((reply) => <Comment comment={reply} key={reply.id} as="replies" />)}
+				</div>
+			) : null}
+		</li>
 	);
 }

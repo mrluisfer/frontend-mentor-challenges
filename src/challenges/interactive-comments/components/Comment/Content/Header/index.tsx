@@ -2,14 +2,13 @@ import { useCommentActions } from '../../../../hooks/useCommentActions';
 import HeaderActions from './HeaderActions/index';
 import { type AsComment, type Comment } from '../../../../types/index.types';
 import MobileHidden from '@/challenges/interactive-comments/components/MobileHidden';
-import { clsx } from 'clsx';
 
 export default function Header({
-																 comment,
-																 as,
-																 setIsEditing,
-																 isEditing,
-															 }: {
+	comment,
+	as,
+	setIsEditing,
+	isEditing,
+}: {
 	comment: Comment;
 	as: AsComment;
 	// eslint-disable-next-line no-unused-vars
@@ -20,23 +19,27 @@ export default function Header({
 	const { isAuthor } = useCommentActions({ comment, as });
 
 	return (
-		<header className="flex items-center justify-between">
-			<div className="flex items-center gap-2.5">
+		<header className="flex items-start justify-between gap-4">
+			<div className="flex min-w-0 items-center gap-4">
 				<img
-					className="w-[30px] h-[30px] rounded-[50%] object-cover"
+					className="h-8 w-8 shrink-0 rounded-full object-cover"
 					src={comment.user.image.png}
 					alt={username}
 					loading="lazy"
 				/>
-				<h1 className="text-[14px] text-[var(--comments-dark-blue)] font-normal">
-					{username}
-					{isAuthor ? <span
-						className={clsx(
-							'bg-[hsl(238,40%,52%)] text-white text-[12px] py-[3px] px-[5px] rounded-[5px] ml-[5px] transition ease-[cubic-bezier(0.4,0,0.2,1)] duration-200 hover:brightness-110',
-						)}
-					>you</span> : null}
-				</h1>
-				<p className="font-normal text-sm text-[hsl(211,10%,45%)]">{comment.createdAt}</p>
+				<div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+					<h2 className="text-[16px] font-medium text-[var(--comments-dark-blue)]">
+						{username}
+					</h2>
+					{isAuthor ? (
+						<span className="rounded-[3px] bg-[var(--comments-moderate-blue)] px-1.5 py-0.5 text-[13px] font-medium leading-none text-white">
+							you
+						</span>
+					) : null}
+					<p className="text-[15px] font-normal text-[var(--comments-grayish-blue)]">
+						{comment.createdAt}
+					</p>
+				</div>
 			</div>
 			<MobileHidden>
 				<HeaderActions

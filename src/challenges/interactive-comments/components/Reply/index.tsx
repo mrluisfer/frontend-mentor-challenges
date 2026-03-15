@@ -18,27 +18,21 @@ export default function Reply({ as = 'comment', comment }: { as?: AsComment; com
 	const { setIsReplying } = useContext(ReplyContext);
 
 	function handleSendReply() {
-		if (!value) return;
+		const trimmedValue = value.trim();
+		if (!trimmedValue) return;
 		if (isReply) {
-			handleAddReply(value, comment!);
+			handleAddReply(trimmedValue, comment!);
 			if (setIsReplying) setIsReplying(false);
-		} else if (as === 'comment') handleAddComment(value);
+		} else if (as === 'comment') {
+			handleAddComment(trimmedValue);
+		}
 		setValue('');
 	}
 
 	return (
 		<div
 			className={clsx(
-				'bg-white rounded-[10px] flex items-start justify-between gap-[15px] transition ease-in-out duration-200 p-[15px]',
-				{
-					'w-[290px] ml-auto': isReply,
-					'w-[330px] ml-0': !isReply,
-				},
-				'md:max-w-[520px] md:mr-0 md:flex-row md:w-full md:p-[20px]',
-				{
-					'md:mt-[15px]': !isReply,
-				},
-				'hover:shadow-[1px_1px_2px_1px_var(--comments-light-gray)]',
+				'flex w-full flex-col gap-4 rounded-[10px] bg-white p-4 shadow-[0_18px_40px_-32px_rgba(71,87,120,0.45)] md:flex-row md:items-start md:gap-4 md:p-6',
 			)}
 		>
 			<MobileHidden>
@@ -47,26 +41,23 @@ export default function Reply({ as = 'comment', comment }: { as?: AsComment; com
 					alt={user.username}
 					title={user.username}
 					loading="lazy"
-					className="w-[40px] h-[40px] object-cover rounded-[50%]"
+					className="h-10 w-10 shrink-0 rounded-full object-cover"
 				/>
 			</MobileHidden>
 			<textarea
-				placeholder="Add a comment..."
-				rows={5}
+				placeholder={isReply ? 'Add a reply...' : 'Add a comment...'}
+				rows={4}
 				onChange={(e) => setValue(e.target.value)}
 				value={value}
 				className={clsx(
-					'flex-1 p-[5px] resize-none border border-[#c7c7c7ff] outline-[#c7c7c7ff] rounded-[10px] font-sans w-full transition ease-in-out duration-200',
-					'hover:border-[#b8b8b8]',
-					'md:px-[20px] md:py-[10px]',
+					'min-h-[96px] w-full flex-1 resize-none rounded-[8px] border border-[hsl(223,19%,93%)] px-4 py-3 text-[16px] leading-6 text-[var(--comments-dark-blue)] outline-none transition-colors duration-200 placeholder:text-[var(--comments-grayish-blue)] focus:border-[var(--comments-moderate-blue)]',
 				)}
 			/>
 			<MobileHidden>
-				<ReplyButtonStyled onClick={handleSendReply}
-				>
+				<ReplyButtonStyled onClick={handleSendReply} disabled={!value.trim()}>
 					{isReply ? 'reply' : 'send'}
 				</ReplyButtonStyled>
-			</MobileHidden>|
+			</MobileHidden>
 			<DesktopHidden>
 				<footer className="flex items-center justify-between w-full">
 					<img
@@ -74,9 +65,9 @@ export default function Reply({ as = 'comment', comment }: { as?: AsComment; com
 						alt={user.username}
 						title={user.username}
 						loading="lazy"
-						className="w-[40px] h-[40px] object-cover rounded-[50%]"
+						className="h-10 w-10 shrink-0 rounded-full object-cover"
 					/>
-					<ReplyButtonStyled onClick={handleSendReply} >
+					<ReplyButtonStyled onClick={handleSendReply} disabled={!value.trim()}>
 						{isReply ? 'reply' : 'send'}
 					</ReplyButtonStyled>
 				</footer>
@@ -86,19 +77,24 @@ export default function Reply({ as = 'comment', comment }: { as?: AsComment; com
 }
 
 
-function ReplyButtonStyled({ children, onClick }: {
+function ReplyButtonStyled({ children, disabled = false, onClick }: {
 	children: ReactNode,
+	disabled?: boolean,
 	// eslint-disable-next-line no-unused-vars
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }) {
 	return (
-		<button onClick={onClick}
-						className={clsx(
-							'bg-[#5457b6ff] text-white border-none py-[10px] px-[20px] rounded-[5px] cursor-pointer font-bold uppercase transition-all ease-in-out duration-200 w-[90px] flex items-center justify-center text-center',
-							'hover:brightness-110',
-							'active:brightness-90 active:scale-[0.95]',
-							'reply__button'
-						)}
+		<button
+			onClick={onClick}
+			type="button"
+			disabled={disabled}
+			className={clsx(
+				'flex min-h-12 w-[104px] items-center justify-center rounded-[8px] border-none px-4 text-center text-[16px] font-medium uppercase text-white transition-opacity duration-200',
+				disabled
+					? 'cursor-not-allowed bg-[hsl(239,57%,85%)]'
+					: 'cursor-pointer bg-[var(--comments-moderate-blue)] hover:opacity-75',
+				'reply__button',
+			)}
 		>
 			{children}
 		</button>

@@ -37,19 +37,14 @@ export default function Likes({ comment, as }: { comment: Comment; as: AsComment
 	}
 
 	return (
-		<div className={clsx(
-			'flex flex-row bg-[var(--comments-light-gray)] p-2.5 rounded-[10px] w-[90px] justify-between select-none',
-			'md:flex-col md:items-center md:h-[80px] md:mt-1 md:w-[50px] md:justify-center',
-			'lg:mt-0 lg:p-0 lg:grid lg:grid-rows-[repeat(3,1fr)] lg:h-full',
-		)}>
+		<div className="flex h-10 w-[100px] shrink-0 select-none flex-row items-center justify-between rounded-[10px] bg-[hsl(228,33%,97%)] px-3 md:h-[100px] md:w-10 md:flex-col md:px-0 md:py-3">
 			<LikesButtonStyled onClick={handlePlusVote} isPressed={isPlusVoted}>
 				<img src={iconPlus} alt="icon-plus" width={imgSize} height={imgSize} />
 			</LikesButtonStyled>
 			<span
 				className={clsx(
-					'rounded-md p-1 text-[hsl(238,40%,52%)] font-medium text-[14px] transition ease-[cubic-bezier(0.4, 0, 0.2, 1)] duration-200',
-					isPlusVoted || isMinusVoted ? 'bg-[#ebeff4]' : '',
-					'tablet:text-[16px]',
+					'text-[15px] font-medium leading-none text-[var(--comments-moderate-blue)]',
+					isPlusVoted || isMinusVoted ? 'opacity-90' : '',
 				)}
 			>
 				{likes}
@@ -67,12 +62,15 @@ function LikesButtonStyled({ isPressed, children, onClick }: {
 	onClick: MouseEventHandler<HTMLButtonElement>
 }) {
 	return (
-		<button onClick={onClick} className={clsx(
-			'bg-transparent border-none transition ease-[cubic-bezier(0.4, 0, 0.2, 1)] duration-200',
-			'flex justify-center items-center',
-			isPressed ? 'filter brightness-70' : '',
-			'hover:filter hover:brightness-80',
-		)}>
+		<button
+			onClick={onClick}
+			type="button"
+			className={clsx(
+				'flex h-5 w-5 items-center justify-center border-none bg-transparent p-0 transition-opacity duration-200',
+				isPressed ? 'opacity-70' : '',
+				'hover:opacity-70',
+			)}
+		>
 			{children}
 		</button>
 	);

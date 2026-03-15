@@ -5,10 +5,8 @@ import {
 	type KeyboardEvent,
 	type Dispatch,
 	type SetStateAction,
-	useMemo,
 } from 'react';
 import type { Comment } from '../../../../types/index.types.js';
-import { clsx } from 'clsx';
 
 interface TextContentProps {
 	comment: Comment;
@@ -19,16 +17,16 @@ interface TextContentProps {
 }
 
 export default function TextContent({
-																			comment,
-																			handleUpdatedContent,
-																			isEditing,
-																			setIsEditing,
-																		}: TextContentProps) {
+	comment,
+	handleUpdatedContent,
+	isEditing,
+	setIsEditing,
+}: TextContentProps) {
 	const formRef = useRef<HTMLFormElement>(null);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	const [editedContent, setEditedContent] = useState<string>(comment.content);
-	const hasEditedContent = useMemo(() => !!editedContent.length, [editedContent]);
+	const hasEditedContent = editedContent.trim().length > 0;
 
 	const handleChangeValue = (editedContent: string) => {
 		setEditedContent(editedContent);
@@ -50,20 +48,21 @@ export default function TextContent({
 	};
 
 	return (
-		<div className="text-sm text-[hsl(211,10%,45%)] mb-[10px] leading-6 flex flex-col gap-2.5">
+		<div className="flex flex-col gap-4">
 			{isEditing ? (
-				<form onSubmit={handleSubmitForm} className="flex flex-col gap-2.5" ref={formRef}>
+				<form onSubmit={handleSubmitForm} className="flex flex-col gap-4" ref={formRef}>
 					<textarea
 						value={editedContent}
 						onChange={({ target: { value } }) => handleChangeValue(value)}
-						className="resize-none mt-1 p-2"
+						className="min-h-[112px] resize-none rounded-[8px] border border-[hsl(223,19%,93%)] px-4 py-3 text-[15px] leading-6 text-[var(--comments-dark-blue)] outline-none transition-colors duration-200 focus:border-[var(--comments-moderate-blue)]"
 						rows={5}
 						onKeyDown={handleOnKeyEnterDown}
 						ref={textareaRef}
 					/>
 					<button
-						className={`${hasEditedContent ? 'bg-[hsl(238,_40%,_52%)] text-white filter hover:brightness-110 hover:shadow active:scale-90' : 'bg-slate-200 cursor-not-allowed'} p-1 px-2 rounded-md transition`}
-						style={{ marginLeft: 'auto' }}
+						className={hasEditedContent
+							? 'ml-auto min-h-12 rounded-[8px] bg-[var(--comments-moderate-blue)] px-7 text-[16px] font-medium uppercase text-white transition-opacity duration-200 hover:opacity-75'
+							: 'ml-auto min-h-12 cursor-not-allowed rounded-[8px] bg-[hsl(239,57%,85%)] px-7 text-[16px] font-medium uppercase text-white'}
 						onClick={() => handleUpdatedContent(editedContent)}
 						type="submit"
 						disabled={!hasEditedContent}
@@ -72,12 +71,11 @@ export default function TextContent({
 					</button>
 				</form>
 			) : (
-				<p className={clsx(
-					'text-[hsl(238,40%,52%)] font-semibold transition-all ease-in-out duration-200',
-					'hover:underline hover:cursor-pointer hover:brightness-[1.2]',
-				)}>
+				<p className="text-[16px] leading-[1.6] text-[var(--comments-grayish-blue)]">
 					{comment?.replyingTo ? (
-						<span className="text-blue-600">@{comment?.replyingTo} </span>
+						<span className="font-medium text-[var(--comments-moderate-blue)]">
+							@{comment?.replyingTo}{' '}
+						</span>
 					) : null}
 					{comment.content}
 				</p>

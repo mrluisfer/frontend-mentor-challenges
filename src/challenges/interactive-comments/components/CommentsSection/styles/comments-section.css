@@ -1,11 +1,22 @@
 .replies {
-	&::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 6%;
-		width: 2px;
-		height: 100%;
-		background-color: var(--comments-light-gray);
+	position: relative;
+	margin-left: 1rem;
+	padding-left: 1rem;
+}
+
+.replies::before {
+	content: "";
+	position: absolute;
+	top: 0.25rem;
+	bottom: 0.25rem;
+	left: 0;
+	width: 2px;
+	background-color: hsl(223, 19%, 93%);
+}
+
+@media (min-width: 768px) {
+	.replies {
+		margin-left: 2.625rem;
+		padding-left: 2.625rem;
 	}
 }

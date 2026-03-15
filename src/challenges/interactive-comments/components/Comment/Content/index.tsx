@@ -22,7 +22,7 @@ export default function Content({ comment, as }: { comment: Comment; as: AsComme
 	});
 
 	return (
-		<div className="flex flex-col flex-1">
+		<div className="flex min-w-0 flex-1 flex-col gap-4">
 			<Header comment={comment} as={as} isEditing={isEditing} setIsEditing={setIsEditing} />
 			<TextContent
 				isEditing={isEditing}
@@ -31,7 +31,7 @@ export default function Content({ comment, as }: { comment: Comment; as: AsComme
 				setIsEditing={setIsEditing}
 			/>
 			<DesktopHidden>
-				<footer className="flex justify-between items-center">
+				<footer className="mt-1 flex items-center justify-between gap-4">
 					<Likes comment={comment} as={as} />
 					<HeaderActions
 						as={as}

@@ -4,7 +4,7 @@ import Reply from '../Reply';
 import type { AsComment, Comment as CommentType } from '../../types/index.types.ts';
 import { useState } from 'react';
 import { ReplyContext } from '../../context/ReplyContext';
-import { clsx } from 'clsx';
+import MobileHidden from '../MobileHidden';
 
 export default function Comment({ as, comment }: { as: AsComment; comment: CommentType }) {
 	const [isReplying, setIsReplying] = useState(false);
@@ -16,22 +16,15 @@ export default function Comment({ as, comment }: { as: AsComment; comment: Comme
 				setIsReplying,
 			}}
 		>
-			<li
-				className={clsx(
-					'flex items-start gap-[15px] bg-white border-[1px] border-[#fafafa] transition-all ease-in-out duration-200 p-[10px] max-w-[290px] rounded-[10px] w-full',
-					{
-						'max-w-[330px]': as === 'comment',
-						'max-w-[290px]': as !== 'comment',
-					},
-					'hover:shadow-[1px_1px_2px_1px_var(--comments-light-gray)] hover:border-[#ccc]',
-				)}
-			>
-				<Likes comment={comment} as={as} />
+			<article className="flex w-full flex-col gap-4 rounded-[10px] bg-white p-4 shadow-[0_18px_40px_-32px_rgba(71,87,120,0.45)] md:flex-row md:gap-6 md:p-6">
+				<MobileHidden>
+					<Likes comment={comment} as={as} />
+				</MobileHidden>
 				<Content as={as} comment={comment} />
-			</li>
+			</article>
 
 			{isReplying && (
-				<div className="flex-1 flex w-full items-end flex-col gap-4 relative replies">
+				<div className="replies flex flex-col gap-4 md:gap-5">
 					<Reply as="replies" comment={comment} />
 				</div>
 			)}

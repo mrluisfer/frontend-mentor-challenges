@@ -62,10 +62,12 @@ export const useCommentActions = ({ comment, as = "comment" }: UseCommentActions
 			score: 0,
 			replies: [],
 			createdAt,
-			replyingTo: comment?.replyingTo || comment?.user?.username,
+			replyingTo: comment.user.username,
 		};
 		const updatedComments = comments?.map((c) => {
-			if (c.id === comment.id) {
+			const isTargetThread = c.id === comment.id || c.replies?.some((reply) => reply.id === comment.id);
+
+			if (isTargetThread) {
 				return { ...c, replies: [newReply, ...(c.replies ?? [])] };
 			}
 			return c;
