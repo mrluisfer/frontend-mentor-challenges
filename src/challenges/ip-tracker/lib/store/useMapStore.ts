@@ -1,16 +1,17 @@
-import { create } from "zustand";
-import type { MapStore } from "../../types/MapStore.js";
-import type { Location } from "../../types/Location.js";
+import { create } from 'zustand';
+import type { MapStore } from '../../types/MapStore.js';
+import type { Location } from '../../types/Location.js';
 
 const userLocationExample: Location = {
-	isp: "SpaceX Starlink",
-	ip: "192.212.174.101",
+	isp: 'UNINET',
+	ip: '189.146.0.1',
 	location: {
-		timezone: "UTC -05:00",
-		city: "Brooklyn, NY",
-		postalCode: "10001",
-		lat: 40.674054,
-		lng: -73.943156,
+		region: 'CDMX',
+		timezone: 'UTC -06:00',
+		city: 'Mexico City',
+		postalCode: '06060',
+		lat: 19.4326077,
+		lng: -99.133208,
 	},
 };
 

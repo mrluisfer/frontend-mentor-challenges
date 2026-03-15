@@ -44,7 +44,7 @@ export const challengesInitialState: Challenge[] = [
 		originUrl: "https://www.frontendmentor.io/challenges/qr-code-component-iux_sIO_H",
 	},
 	{
-		title: "Ip Address Tracker",
+		title: "IP Address Tracker",
 		description:
 			"In this challenge, you will be using two separate APIs together to create an IP Address Tracking app.",
 		tags: [tags.html, tags.css, tags.js, tags.api],

@@ -1,22 +1,22 @@
-import { useMapStore } from "../../lib/store/useMapStore.js";
-import Item from "./Item.js";
-import Separator from "./Separator.js";
+import { useMapStore } from '../../lib/store/useMapStore.js';
+import Item from './Item.js';
+import Separator from './Separator.js';
 
 export default function IpInfo() {
 	const { userLocation } = useMapStore();
+	const locationValue = userLocation?.location.region
+		? `${userLocation.location.city}, ${userLocation.location.region} ${userLocation.location.postalCode}`
+		: `${userLocation?.location.city} ${userLocation?.location.postalCode}`;
 
 	return (
-		<div className="absolute top-[20%] md:top-1/4 left-0 right-0 mx-auto bg-white py-6 px-8 z-[1000] rounded-xl w-80 md:w-[700px] xl:w-auto lg:max-w-5xl h-fit lg:h-[140px] flex md:grid md:grid-cols-2 lg:flex flex-col lg:flex-row lg:flex-nowrap items-center md:items-start justify-between gap-2 md:gap-3">
+		<div className="pointer-events-auto mx-auto flex w-full max-w-[1110px] flex-col items-center gap-6 rounded-[15px] bg-white px-6 py-7 shadow-[0_26px_45px_-18px_rgba(0,0,0,0.28)] md:flex-row md:items-start md:justify-between md:gap-0 md:px-8 md:py-9">
 			<Item label="IP Address" value={userLocation?.ip} />
 			<Separator />
-			<Item
-				label="Location"
-				value={`${userLocation?.location.city} ${userLocation?.location.postalCode}`}
-			/>
+			<Item label="Location" value={locationValue} />
 			<Separator />
 			<Item label="Timezone" value={userLocation?.location.timezone} />
 			<Separator />
-			<Item label="isp" value={userLocation?.isp} />
+			<Item label="ISP" value={userLocation?.isp} />
 		</div>
 	);
 }

@@ -1,14 +1,14 @@
-import { type FormEvent, useState } from "react";
-import iconArrow from "../../../images/icon-arrow.svg?url";
-import { validateIsIpAddress } from "../../utils/isIpAddress";
-import { useMapStore } from "../../../lib/store/useMapStore";
-import type { LatLngExpression } from "leaflet";
-import { getIpAddress } from "../../../lib/api/getIpAddress";
-import Input from "./Input";
-import { logger } from "@/utils/Logger.ts";
+import { type FormEvent, useState } from 'react';
+import iconArrow from '../../../images/icon-arrow.svg?url';
+import { validateIsIpAddress } from '../../utils/isIpAddress';
+import { useMapStore } from '../../../lib/store/useMapStore';
+import type { LatLngExpression } from 'leaflet';
+import { getIpAddress } from '../../../lib/api/getIpAddress';
+import Input from './Input';
+import { logger } from '@/utils/Logger.ts';
 
 export default function Form() {
-	const [inputValue, setInputValue] = useState<string | undefined>("");
+	const [inputValue, setInputValue] = useState<string | undefined>('');
 	const { map, setUserLocation } = useMapStore();
 
 	const handleSubmitIp = async (e: FormEvent) => {
@@ -33,9 +33,12 @@ export default function Form() {
 	};
 
 	return (
-		<form className="mx-auto flex h-11 w-80 md:m-0 md:w-auto" onSubmit={handleSubmitIp}>
+		<form className="mx-auto flex h-[58px] w-full max-w-[555px]" onSubmit={handleSubmitIp}>
 			<Input value={inputValue} setValue={setInputValue} />
-			<button className="flex w-12 items-center justify-center rounded-r-lg bg-[hsl(0,_0%,_17%)] filter transition hover:brightness-95 active:brightness-90">
+			<button
+				type="submit"
+				className="flex w-[58px] shrink-0 items-center justify-center rounded-r-[15px] bg-[var(--ip-very-dark-gray)] transition duration-200 hover:bg-black active:scale-[0.98]"
+			>
 				<img src={iconArrow} alt="Search" />
 			</button>
 		</form>

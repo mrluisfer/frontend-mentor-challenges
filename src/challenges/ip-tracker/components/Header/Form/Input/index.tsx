@@ -1,4 +1,4 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export default function Input({
 	value: inputValue,
@@ -11,7 +11,7 @@ export default function Input({
 		<input
 			type="text"
 			height="h-full"
-			className="outline-none w-full md:w-[450px] rounded-l-lg py-2 pl-6 text-sm md:text-md"
+			className="h-full w-full rounded-l-[15px] border-none px-6 text-[18px] font-normal text-[var(--ip-very-dark-gray)] outline-none placeholder:text-[var(--ip-dark-gray)]"
 			placeholder="Search for any IP address or domain"
 			value={inputValue}
 			role="combobox"

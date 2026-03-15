@@ -1,22 +1,24 @@
-import patternBgDesktop from "../../images/pattern-bg-desktop.png?url";
-import patternBgMobile from "../../images/pattern-bg-mobile.png?url";
-import Form from "./Form";
+import patternBgDesktop from '../../images/pattern-bg-desktop.png?url';
+import patternBgMobile from '../../images/pattern-bg-mobile.png?url';
+import Form from './Form';
 
 export default function Header() {
 	return (
-		<header className="flex items-start pt-9 md:pt-0 md:items-center justify-center relative h-[280px] overflow-hidden">
+		<header className="relative flex h-[300px] items-start justify-center overflow-hidden pt-7 md:items-start md:pt-8">
 			<img
 				src={patternBgDesktop}
 				alt="pattern bg desktop"
-				className="absolute inset-0 w-full -z-10 hidden lg:block h-full object-fill"
+				className="absolute inset-0 hidden h-full w-full object-cover md:block"
 			/>
 			<img
 				src={patternBgMobile}
 				alt="pattern bg mobile"
-				className="absolute inset-0 w-full block lg:hidden -z-10 object-cover"
+				className="absolute inset-0 block h-full w-full object-cover md:hidden"
 			/>
-			<div className="min-w-80 flex items-center justify-center flex-col gap-6">
-				<h1 className="text-white font-bold font-['Rubik'] text-3xl">IP Address Tracker</h1>
+			<div className="relative z-10 flex w-full max-w-[555px] flex-col items-center gap-7 px-6">
+				<h1 className="text-center text-[32px] font-medium leading-none tracking-[-0.02em] text-white md:text-[36px]">
+					IP Address Tracker
+				</h1>
 				<Form />
 			</div>
 		</header>

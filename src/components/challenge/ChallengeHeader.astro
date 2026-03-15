@@ -2,6 +2,8 @@
 import { ChevronLeft } from "lucide-react";
 import PageTitle from "../PageTitle";
 import ChallengeNavigation from "./ChallengeNavigation";
+import { challengesInitialState } from "@/constants/challenges";
+import { clearChallengeRoute } from "@/utils/clearChallengeRoute";
 
 interface Props {
 	challengeName: string;
@@ -9,7 +11,9 @@ interface Props {
 
 const { challengeName } = Astro.props;
 
-const formattedChallengeName = challengeName.replace(/-/g, " ");
+const formattedChallengeName = challengesInitialState.find((challenge) => {
+	return clearChallengeRoute(challenge.route) === challengeName;
+})?.title ?? challengeName.replace(/-/g, " ");
 ---
 
 <header class="py-6 flex items-center justify-between px-6">
@@ -23,7 +27,7 @@ const formattedChallengeName = challengeName.replace(/-/g, " ");
 			<PageTitle />
 		</h1>
 	</a>
-	<p class="text-lg font-semibold ml-4 capitalize">
+	<p class="ml-4 max-w-[8.5rem] truncate text-sm font-semibold sm:max-w-[11rem] sm:text-base md:max-w-none md:text-lg">
 		{formattedChallengeName}
 	</p>
 	<ChallengeNavigation challengeName={challengeName} client:only />
