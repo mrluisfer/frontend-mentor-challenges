@@ -1,45 +1,49 @@
-import { type ChangeEvent, useRef } from "react";
+import { useId, useRef } from "react";
 import { IoMdSearch } from "react-icons/io";
+import { MdClose } from "react-icons/md";
 import { useCountriesStore } from "../../context/useCountriesStore.js";
-import { api } from "../../api.js";
 
 export default function Searchbox() {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const { countrySearch, setCountrySearch, setCountries, regionSelected } = useCountriesStore();
+	const inputId = useId();
+	const { query, setQuery } = useCountriesStore();
 
-	const handleSearchCountry = (e: ChangeEvent<HTMLInputElement>) => {
-		setCountrySearch(e.target.value);
-		if (!countrySearch?.length) {
-			setCountries(api);
-		}
-		const filterSearchCountries = api?.filter((country) => {
-			if (regionSelected) {
-				return (
-					country.name.toLowerCase().includes(countrySearch?.toLowerCase() ?? "") &&
-					country.region === regionSelected
-				);
-			}
-			return country.name.toLowerCase().includes(countrySearch?.toLowerCase() ?? "");
-		});
-		setCountries(filterSearchCountries);
+	const handleClear = () => {
+		setQuery("");
+		inputRef.current?.focus();
 	};
 
 	return (
-		<div
-			className="bg-[var(--rest-white)] dark:bg-[var(--rest-dark-blue)] shadow-md flex items-center justify-center px-10 gap-5 rounded-md min-h-12 sm:w-full md:max-w-lg"
-			onClick={() => {
-				inputRef?.current?.focus();
-			}}
+		<form
+			role="search"
+			onSubmit={(e) => e.preventDefault()}
+			className="flex min-h-12 w-full items-center gap-5 rounded-md bg-[var(--rest-white)] px-6 shadow-md transition-shadow focus-within:shadow-lg md:max-w-lg dark:bg-[var(--rest-dark-blue)]"
+			onClick={() => inputRef.current?.focus()}
 		>
-			<IoMdSearch className="text-2xl text-[var(--rest-dark-gray)]" />
+			<label htmlFor={inputId} className="sr-only">
+				Search for a country
+			</label>
+			<IoMdSearch className="text-xl text-[var(--rest-dark-gray)] dark:text-[var(--rest-very-light-gray)]" />
 			<input
+				id={inputId}
 				ref={inputRef}
-				type="text"
+				type="search"
+				autoComplete="off"
 				placeholder="Search for a country..."
-				className="w-full h-12 outline-none text-base bg-transparent dark:text-[var(--rest-white)]"
-				value={countrySearch}
-				onChange={handleSearchCountry}
+				className="h-12 w-full bg-transparent text-sm outline-none placeholder:text-[var(--rest-dark-gray)] dark:text-[var(--rest-white)] dark:placeholder:text-[var(--rest-very-light-gray)]/80"
+				value={query}
+				onChange={(e) => setQuery(e.target.value)}
 			/>
-		</div>
+			{query.length > 0 && (
+				<button
+					type="button"
+					aria-label="Clear search"
+					onClick={handleClear}
+					className="rounded-full p-1 text-[var(--rest-dark-gray)] transition hover:bg-[var(--rest-very-light-gray)] dark:text-[var(--rest-very-light-gray)] dark:hover:bg-[var(--rest-very-dark-value)]"
+				>
+					<MdClose />
+				</button>
+			)}
+		</form>
 	);
 }

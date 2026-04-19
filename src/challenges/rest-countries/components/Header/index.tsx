@@ -1,40 +1,30 @@
-import { IoMoonOutline } from "react-icons/io5";
+import { useDarkModeStore } from "@/stores/darkModeStore";
 import { FiSun } from "react-icons/fi";
-import { useThemeStore } from "../../context/useThemeStore.js";
-import { Theme, type ThemeKeys } from "../../enums/Theme.js";
-
-const alternateTheme = {
-	[Theme.light]: Theme.dark,
-	[Theme.dark]: Theme.light,
-};
+import { IoMoonOutline } from "react-icons/io5";
 
 export default function Header() {
-	const { theme: themeStore, setTheme } = useThemeStore();
-	const isDarkTheme = themeStore === Theme.dark;
-
-	const handleToggleTheme = () => {
-		const theme = (themeStore ?? localStorage.getItem(Theme.key)) as ThemeKeys;
-		const newTheme = alternateTheme[theme ?? ""] as ThemeKeys;
-		if (newTheme.length) {
-			setTheme(newTheme);
-		}
-	};
+	const darkMode = useDarkModeStore((s) => s.darkMode);
+	const toggleDarkMode = useDarkModeStore((s) => s.toggleDarkMode);
 
 	return (
-		<header className="flex items-center justify-between px-4 py-6 bg-[var(--rest-white)] dark:bg-[var(--rest-dark-blue)] shadow-md dark:text-[var(--rest-white)] md:px-14">
-			<h1 className="font-bold text-lg sm:text-xl">Where in the world?</h1>
+		<header className="flex items-center justify-between bg-[var(--rest-white)] px-4 py-6 shadow-md md:px-14 dark:bg-[var(--rest-dark-blue)] dark:text-[var(--rest-white)]">
+			<h1 className="text-lg font-bold sm:text-xl">Where in the world?</h1>
 			<button
-				className="flex items-center gap-2 hover:bg-[var(--rest-very-light-gray)] dark:hover:bg-[var(--rest-very-dark-value)] py-1 px-2 rounded-lg transition transform active:scale-95"
-				onClick={handleToggleTheme}
+				type="button"
+				role="switch"
+				aria-checked={darkMode}
+				aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+				onClick={() => toggleDarkMode(!darkMode)}
+				className="flex transform items-center gap-2 rounded-lg px-2 py-1 text-sm font-semibold transition hover:bg-[var(--rest-very-light-gray)] focus-visible:ring-2 focus-visible:ring-[var(--rest-dark-gray)] focus-visible:outline-none active:scale-95 dark:hover:bg-[var(--rest-very-dark-value)]"
 			>
-				{isDarkTheme ? (
+				{darkMode ? (
 					<>
-						<FiSun />
+						<FiSun aria-hidden="true" />
 						<span>Light Mode</span>
 					</>
 				) : (
 					<>
-						<IoMoonOutline />
+						<IoMoonOutline aria-hidden="true" />
 						<span>Dark Mode</span>
 					</>
 				)}

@@ -1,19 +1,21 @@
-export default function CountryLabel({
-	label,
-	value,
-}: {
+type Props = {
 	label: string | undefined;
 	value: string | number | string[] | undefined;
-}) {
-	if (!value || !label) return null;
+};
 
-	const isValueArray = typeof value === "object" && Array.isArray(value);
+export default function CountryLabel({ label, value }: Props) {
+	if (!label) return null;
+	const isEmpty =
+		value === undefined || value === null || (Array.isArray(value) && value.length === 0);
+	if (isEmpty) return null;
+
+	const displayed = Array.isArray(value) ? value.join(", ") : value;
 
 	return (
-		<p className="flex items-center gap-1">
+		<p className="flex flex-wrap items-baseline gap-1">
 			<span className="font-semibold">{label}:</span>
-			<span className="dark:text-[var(--rest-very-light-gray)] opacity-90">
-				{isValueArray ? value.map((v) => v) : value}
+			<span className="font-light opacity-90 dark:text-[var(--rest-very-light-gray)]">
+				{displayed}
 			</span>
 		</p>
 	);

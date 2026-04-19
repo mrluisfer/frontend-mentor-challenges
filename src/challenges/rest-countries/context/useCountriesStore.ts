@@ -1,29 +1,23 @@
 import { create } from "zustand";
 import type { Countries } from "../types/Api.js";
 
-interface ThemeStore {
-	countries: Countries | undefined;
+interface CountriesStore {
+	allCountries: Countries;
 	// eslint-disable-next-line no-unused-vars
-	setCountries: (newCountries: Countries) => void;
-	regionSelected: string | undefined;
+	setAllCountries: (countries: Countries) => void;
+	region: string | undefined;
 	// eslint-disable-next-line no-unused-vars
-	setRegionSelected: (newRegion: string | undefined) => void;
-	countrySearch: string | undefined;
+	setRegion: (region: string | undefined) => void;
+	query: string;
 	// eslint-disable-next-line no-unused-vars
-	setCountrySearch: (newValue: string | undefined) => void;
+	setQuery: (query: string) => void;
 }
 
-export const useCountriesStore = create<ThemeStore>((set) => ({
-	countries: [],
-	setCountries: (newCountries) => {
-		set(() => ({ countries: newCountries }));
-	},
-	regionSelected: "",
-	setRegionSelected: (newRegion) => {
-		set(() => ({ regionSelected: newRegion }));
-	},
-	countrySearch: "",
-	setCountrySearch: (newValue) => {
-		set(() => ({ countrySearch: newValue }));
-	},
+export const useCountriesStore = create<CountriesStore>((set) => ({
+	allCountries: [],
+	setAllCountries: (allCountries) => set({ allCountries }),
+	region: undefined,
+	setRegion: (region) => set({ region }),
+	query: "",
+	setQuery: (query) => set({ query }),
 }));

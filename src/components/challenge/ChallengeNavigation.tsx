@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -12,9 +11,14 @@ import ChallengeNavigationItem from "./ChallengeNavigationItem";
 
 export default function ChallengeNavigation({ challengeName }: { challengeName: string }) {
 	const formattedChallengeName = challengeName.replace(/-/g, " ").toLowerCase();
-	const renderedChallenge = challengesInitialState.find(
-		(challenge) => challenge.title?.toLowerCase() === formattedChallengeName
-	);
+	const renderedChallenge = challengesInitialState.find((challenge) => {
+		return (
+			challenge.route
+				?.replace(/^\/challenge\//, "")
+				.replace(/-/g, " ")
+				.toLowerCase() === formattedChallengeName
+		);
+	});
 
 	return (
 		<NavigationMenu>
@@ -23,12 +27,10 @@ export default function ChallengeNavigation({ challengeName }: { challengeName: 
 					<NavigationMenuTrigger>Explore more challenges</NavigationMenuTrigger>
 					<NavigationMenuContent>
 						<ul className="grid gap-2 p-2 md:w-[300px] md:grid-cols-2 lg:w-[350px]">
-							{challengesInitialState
-								?.slice(0, 5)
-								.map((challenge) => (
-									<ChallengeNavigationItem key={challenge.title} challenge={challenge} />
-								))}
-							<li className="h-fit rounded-md p-2 text-sm font-semibold hover:bg-neutral-200">
+							{challengesInitialState?.slice(0, 5).map((challenge) => (
+								<ChallengeNavigationItem key={challenge.title} challenge={challenge} />
+							))}
+							<li className="h-fit rounded-md p-2 text-sm font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-800">
 								<a href="/">Explore more challenges...</a>
 							</li>
 						</ul>
@@ -36,10 +38,9 @@ export default function ChallengeNavigation({ challengeName }: { challengeName: 
 				</NavigationMenuItem>
 				<NavigationMenuItem>
 					<NavigationMenuLink
-						className={cn(
-							"block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-						)}
 						href={renderedChallenge?.originUrl}
+						target="_blank"
+						rel="noopener noreferrer"
 					>
 						Visit original challenge
 					</NavigationMenuLink>

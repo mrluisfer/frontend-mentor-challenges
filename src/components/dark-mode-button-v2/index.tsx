@@ -1,38 +1,36 @@
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { useDarkModeStore } from "@/stores/darkModeStore";
 import { Moon, Sun } from "lucide-react";
-import { useState } from "react";
 
 export default function DarkModeButtonV2() {
-	// False is dark mode, true is light mode
-	const [checked, setChecked] = useState<boolean>(true);
-	const { toggleDarkMode } = useDarkModeStore();
-
-	const handleCheckedChange = (isChecked: boolean) => {
-		setChecked(isChecked);
-		toggleDarkMode(!isChecked);
-	};
+	const darkMode = useDarkModeStore((s) => s.darkMode);
+	const toggleDarkMode = useDarkModeStore((s) => s.toggleDarkMode);
 
 	return (
-		<div>
-			<div className="relative inline-grid h-9 grid-cols-[1fr_1fr] items-center text-sm font-medium">
-				<Switch
-					id="switch-12"
-					checked={checked}
-					onCheckedChange={handleCheckedChange}
-					className="peer absolute inset-0 h-[inherit] w-auto data-[checked]:bg-input/50 data-[unchecked]:bg-input/50 [&_span]:h-full [&_span]:w-1/2 [&_span]:transition-transform [&_span]:duration-300 [&_span]:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] data-[checked]:[&_span]:translate-x-full rtl:data-[checked]:[&_span]:-translate-x-full"
-				/>
-				<span className="pointer-events-none relative ms-0.5 flex min-w-8 items-center justify-center text-center peer-data-[checked]:text-muted-foreground/70">
-					<Moon size={16} strokeWidth={2} aria-hidden="true" />
-				</span>
-				<span className="pointer-events-none relative me-0.5 flex min-w-8 items-center justify-center text-center peer-data-[unchecked]:text-muted-foreground/70">
-					<Sun size={16} strokeWidth={2} aria-hidden="true" />
-				</span>
-			</div>
-			<Label htmlFor="switch-12" className="sr-only">
-				Labeled switch
-			</Label>
-		</div>
+		<button
+			type="button"
+			role="switch"
+			aria-checked={darkMode}
+			aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+			onClick={() => toggleDarkMode(!darkMode)}
+			className="border-input focus-visible:outline-ring/70 relative inline-flex h-9 w-[72px] items-center rounded-full border bg-neutral-100 p-1 shadow-inner transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-neutral-800"
+		>
+			<span className="pointer-events-none absolute inset-0 flex items-center justify-between px-[10px] text-neutral-400 dark:text-neutral-500">
+				<Sun size={14} strokeWidth={2} aria-hidden="true" />
+				<Moon size={14} strokeWidth={2} aria-hidden="true" />
+			</span>
+			<span
+				className={`relative z-10 flex size-7 items-center justify-center rounded-full bg-gradient-to-br shadow-md transition-transform duration-300 ease-out motion-reduce:transition-none ${
+					darkMode
+						? "translate-x-9 from-indigo-500 to-indigo-700"
+						: "translate-x-0 from-amber-300 to-amber-500"
+				}`}
+			>
+				{darkMode ? (
+					<Moon size={14} strokeWidth={2.5} className="text-white" aria-hidden="true" />
+				) : (
+					<Sun size={14} strokeWidth={2.5} className="text-white" aria-hidden="true" />
+				)}
+			</span>
+		</button>
 	);
 }

@@ -1,6 +1,6 @@
 import { useRef, type ChangeEvent } from "react";
 import { useChallengesStore } from "@/stores/challengesStore";
-import Input from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, X } from "lucide-react";
 
@@ -36,7 +36,7 @@ export default function SearchBar() {
 
 	return (
 		<form
-			className="flex items-start gap-2 justify-center md:justify-end w-full md:w-auto lg:w-96 flex-col"
+			className="flex w-full flex-col items-start justify-center gap-2 md:w-auto md:justify-end lg:w-96"
 			onSubmit={(submitEvent) => {
 				submitEvent.preventDefault();
 				handleSubmitFilterChallenges();

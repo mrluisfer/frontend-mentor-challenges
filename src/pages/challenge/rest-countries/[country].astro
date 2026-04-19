@@ -1,0 +1,22 @@
+---
+import DetailView from "@/challenges/rest-countries/detail";
+import { api } from "@/challenges/rest-countries/api";
+import ChallengeHeader from "@/components/challenge/ChallengeHeader.astro";
+import ChallengeLayout from "@/layouts/ChallengeLayout.astro";
+import { sanitizeText } from "@/utils/sanitizeText";
+
+export function getStaticPaths() {
+	return (api ?? []).map((country) => ({
+		params: { country: sanitizeText(country.name) },
+		props: { countryName: country.name },
+	}));
+}
+
+const { country } = Astro.params;
+const { countryName } = Astro.props;
+---
+
+<ChallengeLayout title={`JSChallenge | ${countryName}`}>
+	<ChallengeHeader challengeName="rest-countries" />
+	<DetailView client:only="react" countrySlug={country} />
+</ChallengeLayout>

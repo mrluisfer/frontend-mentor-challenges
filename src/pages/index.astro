@@ -1,5 +1,4 @@
 ---
-// Welcome to Astro! Everything between these triple-dash code fences
 import SearchBar from "@/components/search-bar/SearchBar";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Filter from "@/components/filter-tags";
@@ -8,43 +7,83 @@ import Footer from "@/components/footer";
 import DarkModeButtonV2 from "@/components/dark-mode-button-v2";
 import PageTitle from "@/components/PageTitle";
 import GitHubStarButton from "@/components/github-stars-button";
-// import Blob from "@/components/ui/blob";
 ---
 
 <BaseLayout title="JSChallenges Hub">
-	<div class="relative min-h-screen flex flex-col gap-14">
-		<!-- <Blob className="top-0 left-0 fill-yellow-100 dark:fill-neutral-700 dark:opacity-[0.1]" />pnpm add -g pnpm -->
-		<div class="max-w-5xl md:w-[64rem] mx-auto pb-32">
-			<header class="py-[2rem] flex gap-8 justify-between items-start">
-				<section class="flex flex-col gap-4">
-					<h1 class="text-4xl font-black dark:text-white text-black">
-						<PageTitle />
-					</h1>
-					<p
-						class="text-base text-neutral-700 dark:text-neutral-400 max-w-lg md:max-w-xl lg:max-w-2xl dark:hover:text-white hover:text-neutral-900 flex flex-col w-fit transition gap-2"
+	<a href="#challenges" class="skip-link">Skip to challenges</a>
+
+	<div class="relative flex min-h-screen flex-col">
+		<div class="mx-auto w-full max-w-5xl flex-1 px-4 pb-32 sm:px-6 lg:px-8">
+
+			<header class="pt-10 pb-8" aria-label="Site header">
+				<div class="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+
+					<section class="flex flex-col gap-5">
+						<!-- Eyebrow badge -->
+						<div class="flex items-center gap-2" aria-hidden="true">
+							<span
+								class="inline-flex items-center gap-1.5 rounded-full border border-yellow-300/60 bg-yellow-50 px-3 py-1 text-xs font-semibold tracking-wide text-yellow-700 dark:border-yellow-400/20 dark:bg-yellow-400/10 dark:text-yellow-400"
+							>
+								<span class="h-1.5 w-1.5 rounded-full bg-yellow-400 animate-pulse"></span>
+								Open Source · Frontend Collection
+							</span>
+						</div>
+
+						<!-- Title -->
+						<h1
+							class="hero-fade-in text-5xl font-black leading-[1.1] tracking-tight text-neutral-950 dark:text-white"
+						>
+							<PageTitle />
+						</h1>
+
+						<!-- Description -->
+						<p
+							class="hero-fade-in max-w-xl text-base leading-relaxed text-neutral-600 [animation-delay:100ms] dark:text-neutral-400"
+						>
+							A curated collection of challenges from
+							<strong class="font-semibold text-neutral-900 dark:text-neutral-200"
+								>Frontend Mentor</strong
+							>,
+							<strong class="font-semibold text-neutral-900 dark:text-neutral-200"
+								>CodeChallenges</strong
+							>
+							and more — built to sharpen your JavaScript &amp; Frontend skills.
+						</p>
+					</section>
+
+					<!-- Action controls -->
+					<section
+						class="hero-fade-in flex shrink-0 items-center gap-4 [animation-delay:150ms] sm:pt-2"
+						aria-label="Site controls"
 					>
-						<span>
-							<PageTitle /> is a site made for JavaScript and Frontend Development challenges.
-						</span>
-						<span>
-							Discover a curated collection of challenges from popular sites like Frontend Mentor,
-							CodeChallenges, and more.
-						</span>
-					</p>
-				</section>
-				<section class="flex items-center gap-6">
-					<GitHubStarButton client:only />
-					<DarkModeButtonV2 client:only />
-				</section>
+						<GitHubStarButton client:only />
+						<DarkModeButtonV2 client:only />
+					</section>
+				</div>
 			</header>
-			<div class="flex items-end justify-between pt-4 gap-12">
+
+			<!-- Visual divider -->
+			<div
+				class="mb-8 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent dark:via-neutral-800"
+				role="separator"
+				aria-hidden="true"
+			></div>
+
+			<!-- Toolbar -->
+			<section
+				class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-8"
+				aria-label="Search and filter challenges"
+			>
 				<SearchBar client:only />
 				<Filter client:only />
-			</div>
-			<ChallengesRender client:only />
+			</section>
+
+			<!-- Challenges list -->
+			<section id="challenges" aria-label="Challenges list" tabindex="-1">
+				<ChallengesRender client:only />
+			</section>
 		</div>
+
 		<Footer client:only />
 	</div>
 </BaseLayout>
-
-<style></style>

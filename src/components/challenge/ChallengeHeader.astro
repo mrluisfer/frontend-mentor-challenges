@@ -16,19 +16,33 @@ const formattedChallengeName = challengesInitialState.find((challenge) => {
 })?.title ?? challengeName.replace(/-/g, " ");
 ---
 
-<header class="py-6 flex items-center justify-between px-6">
+<header
+	class="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:flex-nowrap sm:gap-4 sm:px-6 sm:py-6"
+	aria-label="Challenge header"
+>
 	<a
-		class="p-1 flex items-center gap-2 justify-center hover:bg-neutral-100 rounded-md transition bg-white"
 		href="/"
-		title="Go to home"
+		aria-label="Back to home"
+		class="focus-visible:ring-ring group flex shrink-0 items-center gap-1 rounded-md p-1 transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:hover:bg-neutral-900"
 	>
-		<ChevronLeft />
-		<h1 class="font-extrabold text-2xl">
+		<ChevronLeft
+			size={20}
+			strokeWidth={2}
+			aria-hidden="true"
+			className="transition-transform group-hover:-translate-x-0.5"
+		/>
+		<span class="text-lg font-extrabold sm:text-2xl">
 			<PageTitle />
-		</h1>
+		</span>
 	</a>
-	<p class="ml-4 max-w-[8.5rem] truncate text-sm font-semibold sm:max-w-[11rem] sm:text-base md:max-w-none md:text-lg">
+	<h1
+		class="order-last min-w-0 flex-1 basis-full truncate text-center text-base font-semibold sm:order-none sm:basis-auto sm:text-lg md:text-xl"
+		title={formattedChallengeName}
+	>
 		{formattedChallengeName}
-	</p>
-	<ChallengeNavigation challengeName={challengeName} client:only />
+	</h1>
+
+	<div class="shrink-0">
+		<ChallengeNavigation challengeName={challengeName} client:only />
+	</div>
 </header>
