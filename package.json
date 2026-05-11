@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@astrojs/react": "^5.0.3",
 		"@astrojs/ts-plugin": "^1.10.7",
-		"@base-ui/react": "1.4.0",
+		"@base-ui/react": "1.4.1",
 		"@fontsource-variable/instrument-sans": "^5.2.8",
 		"@fontsource-variable/montserrat": "^5.2.8",
 		"@radix-ui/react-aspect-ratio": "^1.1.8",
