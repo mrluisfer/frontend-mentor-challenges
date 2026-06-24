@@ -1,0 +1,25 @@
+@font-face {
+	font-family: "DM Sans";
+	src: url("./assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf")
+		format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Bricolage Grotesque";
+	src: url("./assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf")
+		format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+.weather-app {
+	font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.weather-app h1 {
+	font-family: "Bricolage Grotesque", system-ui, sans-serif;
+}

@@ -8,6 +8,7 @@ export enum AllRoutes {
 	ipAddress = "/challenge/ip-tracker",
 	restCountries = "/challenge/rest-countries",
 	challenges = "/challenges",
+	weatherApp = "/challenge/weather-app",
 }
 
 export const frontendMentorUrl = "https://www.frontendmentor.io";

@@ -66,6 +66,17 @@ export const challengesInitialState: Challenge[] = [
 		originUrl:
 			"https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca",
 	},
+	{
+		title: "Weather app",
+		description:
+			"Build a responsive weather app with search functionality, unit conversion, and detailed forecasts using the Open-Meteo API.",
+		tags: [tags.html, tags.css, tags.js, tags.api],
+		level: Levels.junior,
+		route: AllRoutes.weatherApp,
+		image:
+			"https://res.cloudinary.com/dz209s6jk/image/upload/v1757082492/Challenges/ghcrrrc16wimfo9plqmx.jpg",
+		originUrl: "https://www.frontendmentor.io/challenges/weather-app-K1FhddVm49",
+	},
 ];
 
 export const challengesTitles = challengesInitialState.map((challenge) => {
