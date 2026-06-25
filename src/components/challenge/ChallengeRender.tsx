@@ -1,17 +1,21 @@
-import { challengesComponentRender } from '@/constants/challengesComponentRender';
+import { challengesComponentRender } from "@/constants/challengesComponentRender";
+import type { ChallengeSlug } from "@/types/Challenge";
 
 type ChallengeRenderProps = {
-	challengeName: string
-}
-export default function ChallengeRender({ challengeName }: ChallengeRenderProps) {
-	if (!challengeName || !challengesComponentRender[challengeName]) return (
-		<div>
-			{/*TODO: work on an beauty 404 challenge*/}
-			Challenge not found!
-		</div>
-	);
+	challengeName: string;
+};
 
-	console.log({ challengeName });
-	const ChallengeComponent = challengesComponentRender[challengeName];
+export default function ChallengeRender({ challengeName }: ChallengeRenderProps) {
+	const ChallengeComponent = challengesComponentRender[challengeName as ChallengeSlug];
+
+	if (!ChallengeComponent) {
+		return (
+			<div>
+				{/*TODO: work on an beauty 404 challenge*/}
+				Challenge not found!
+			</div>
+		);
+	}
+
 	return <ChallengeComponent />;
 }

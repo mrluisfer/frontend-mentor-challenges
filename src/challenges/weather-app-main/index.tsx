@@ -67,18 +67,13 @@ export default function WeatherApp() {
 			navigator.geolocation.getCurrentPosition(
 				async (position) => {
 					try {
-						resolve(
-							await reverseGeocode(
-								position.coords.latitude,
-								position.coords.longitude,
-							),
-						);
+						resolve(await reverseGeocode(position.coords.latitude, position.coords.longitude));
 					} catch {
 						resolve(null);
 					}
 				},
 				() => resolve(null),
-				{ timeout: 10000, maximumAge: 600000 },
+				{ timeout: 10000, maximumAge: 600000 }
 			);
 		});
 	}, []);
@@ -131,61 +126,60 @@ export default function WeatherApp() {
 			<div className="mx-auto max-w-[1216px]">
 				<WeatherHeader units={units} onUnitsChange={setUnits} />
 
-				{status === "error" ? (
-					<ErrorState onRetry={load} />
-				) : (
-					<>
-						<h1 className="mx-auto mt-12 max-w-2xl text-center text-5xl leading-tight font-bold md:mt-16">
-							How&apos;s the sky looking today?
-						</h1>
+				<main>
+					{status === "error" ? (
+						<ErrorState onRetry={load} />
+					) : (
+						<>
+							<h1 className="mx-auto mt-12 max-w-2xl text-center text-5xl leading-tight font-bold md:mt-16">
+								How&apos;s the sky looking today?
+							</h1>
 
-						<div className="mt-12">
-							<SearchBar onSelect={handleSelectLocation} />
-						</div>
+							<div className="mt-12">
+								<SearchBar onSelect={handleSelectLocation} />
+							</div>
 
-						<div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_384px]">
-							<div className="flex flex-col gap-8">
-								<CurrentWeather
-									location={label}
-									current={
-										weather?.current ?? {
-											time: "",
-											temperature: 0,
-											apparentTemperature: 0,
-											humidity: 0,
-											windSpeed: 0,
-											precipitation: 0,
-											code: 0,
+							<div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_384px]">
+								<div className="flex flex-col gap-8">
+									<CurrentWeather
+										location={label}
+										current={
+											weather?.current ?? {
+												time: "",
+												temperature: 0,
+												apparentTemperature: 0,
+												humidity: 0,
+												windSpeed: 0,
+												precipitation: 0,
+												code: 0,
+											}
 										}
-									}
-									loading={loading || !weather}
-								/>
-								<WeatherMetrics
-									current={weather?.current}
-									units={units}
-									loading={loading || !weather}
-								/>
-								<DailyForecast
-									daily={weather?.daily ?? []}
-									loading={loading || !weather}
-								/>
-							</div>
+										loading={loading || !weather}
+									/>
+									<WeatherMetrics
+										current={weather?.current}
+										units={units}
+										loading={loading || !weather}
+									/>
+									<DailyForecast daily={weather?.daily ?? []} loading={loading || !weather} />
+								</div>
 
-							{/* On desktop this cell's height is driven by the left
+								{/* On desktop this cell's height is driven by the left
 							    column; the panel fills it absolutely and scrolls. */}
-							<div className="lg:relative">
-								<HourlyForecast
-									hourly={weather?.hourly ?? []}
-									daily={weather?.daily ?? []}
-									selectedDay={selectedDay}
-									currentTime={weather?.current.time ?? ""}
-									onSelectDay={setSelectedDay}
-									loading={loading || !weather}
-								/>
+								<div className="lg:relative">
+									<HourlyForecast
+										hourly={weather?.hourly ?? []}
+										daily={weather?.daily ?? []}
+										selectedDay={selectedDay}
+										currentTime={weather?.current.time ?? ""}
+										onSelectDay={setSelectedDay}
+										loading={loading || !weather}
+									/>
+								</div>
 							</div>
-						</div>
-					</>
-				)}
+						</>
+					)}
+				</main>
 			</div>
 		</div>
 	);

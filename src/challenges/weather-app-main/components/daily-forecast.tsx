@@ -10,9 +10,7 @@ type DailyForecastProps = {
 export default function DailyForecast({ daily, loading }: DailyForecastProps) {
 	return (
 		<section>
-			<h2 className="mb-5 text-xl font-semibold text-[hsl(0,0%,100%)]">
-				Daily forecast
-			</h2>
+			<h2 className="mb-5 text-xl font-semibold text-[hsl(0,0%,100%)]">Daily forecast</h2>
 			<div className="grid grid-cols-3 gap-4 sm:grid-cols-7">
 				{loading || daily.length === 0
 					? Array.from({ length: 7 }).map((_, i) => (
@@ -28,17 +26,15 @@ export default function DailyForecast({ daily, loading }: DailyForecastProps) {
 									key={day.time}
 									className="flex flex-col items-center gap-4 rounded-xl border border-[hsl(243,23%,30%)] bg-[hsl(243,27%,20%)] px-2.5 py-4"
 								>
-									<p className="text-lg text-[hsl(0,0%,100%)]">
-										{formatWeekdayShort(day.time)}
-									</p>
-									<img
-										src={weather.icon}
-										alt={weather.label}
-										className="size-14"
-									/>
+									<p className="text-lg text-[hsl(0,0%,100%)]">{formatWeekdayShort(day.time)}</p>
+									<img src={weather.icon} alt={weather.label} className="size-14" />
 									<div className="flex w-full justify-between text-base text-[hsl(0,0%,100%)]">
-										<span>{formatTemp(day.max)}</span>
+										<span>
+											<span className="sr-only">High </span>
+											{formatTemp(day.max)}
+										</span>
 										<span className="text-[hsl(240,6%,70%)]">
+											<span className="sr-only">Low </span>
 											{formatTemp(day.min)}
 										</span>
 									</div>

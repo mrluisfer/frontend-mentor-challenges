@@ -21,4 +21,11 @@ export default [
 			"react/prop-types": "off",
 		},
 	},
+	{
+		// TypeScript already checks for undefined identifiers (including ambient
+		// types like PermissionName from lib.dom.d.ts), and `no-undef` does not
+		// understand the type space, so it false-positives on type-only refs.
+		files: ["**/*.{ts,tsx}"],
+		rules: { "no-undef": "off" },
+	},
 ];

@@ -3,7 +3,6 @@ import { ChevronLeft } from "lucide-react";
 import PageTitle from "../PageTitle";
 import ChallengeNavigation from "./ChallengeNavigation";
 import { challengesInitialState } from "@/constants/challenges";
-import { clearChallengeRoute } from "@/utils/clearChallengeRoute";
 
 interface Props {
 	challengeName: string;
@@ -11,9 +10,9 @@ interface Props {
 
 const { challengeName } = Astro.props;
 
-const formattedChallengeName = challengesInitialState.find((challenge) => {
-	return clearChallengeRoute(challenge.route) === challengeName;
-})?.title ?? challengeName.replace(/-/g, " ");
+const formattedChallengeName =
+	challengesInitialState.find((challenge) => challenge.slug === challengeName)?.title ??
+	challengeName.replace(/-/g, " ");
 ---
 
 <header

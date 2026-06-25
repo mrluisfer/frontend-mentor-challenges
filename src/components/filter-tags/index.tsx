@@ -33,7 +33,7 @@ export default function Filter() {
 				<div className="flex flex-col gap-4">
 					<Popover open={open} onOpenChange={setOpen}>
 						<PopoverTrigger
-							render={<Button variant="outline" size="icon" aria-label="Filters" id="filters" />}
+							render={<Button variant="secondary" size="icon" aria-label="Filters" id="filters" />}
 						>
 							<ListFilter size={16} strokeWidth={2} aria-hidden="true" />
 						</PopoverTrigger>

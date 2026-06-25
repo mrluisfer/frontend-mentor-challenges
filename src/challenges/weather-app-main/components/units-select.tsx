@@ -3,12 +3,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-import type {
-	Precipitation,
-	Temperature,
-	Units,
-	WindSpeed,
-} from "../lib/types";
+import type { Precipitation, Temperature, Units, WindSpeed } from "../lib/types";
 
 import iconCheckmark from "../assets/images/icon-checkmark.svg?url";
 import iconDropdown from "../assets/images/icon-dropdown.svg?url";
@@ -121,10 +116,13 @@ export default function UnitsSelect({ value, onChange }: UnitsSelectProps) {
 			<PopoverContent
 				align="end"
 				sideOffset={10}
+				role="menu"
+				aria-label="Units settings"
 				className="w-[214px] gap-0 rounded-xl bg-[hsl(243,27%,20%)] p-2 ring-1 ring-[hsl(243,23%,30%)]"
 			>
 				<button
 					type="button"
+					role="menuitem"
 					onClick={toggleSystem}
 					className="mb-1 w-full rounded-lg px-2 py-2.5 text-left text-base text-[hsl(0,0%,100%)] transition-colors hover:bg-[hsl(243,23%,24%)]"
 				>

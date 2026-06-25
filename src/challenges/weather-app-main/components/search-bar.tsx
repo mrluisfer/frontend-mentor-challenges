@@ -105,42 +105,49 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
 						onFocus={() => results.length > 0 && setOpen(true)}
 						placeholder="Search for a place..."
 						aria-label="Search for a place"
+						role="combobox"
+						aria-expanded={open}
+						aria-controls="search-suggestions"
+						aria-autocomplete="list"
+						aria-busy={searching}
 						className={cn(
 							"w-full rounded-xl bg-[hsl(243,27%,20%)] py-3.5 pr-4 pl-12 text-base text-[hsl(0,0%,100%)]",
-							"placeholder:text-[hsl(240,6%,70%)] transition-colors",
-							"hover:bg-[hsl(243,23%,24%)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(248,70%,36%)]",
+							"transition-colors placeholder:text-[hsl(240,6%,70%)]",
+							"hover:bg-[hsl(243,23%,24%)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(248,70%,36%)]"
 						)}
 					/>
 				</div>
 
 				{open && (
-					<div className="absolute top-[calc(100%+0.5rem)] z-20 w-full rounded-xl border border-[hsl(243,23%,30%)] bg-[hsl(243,27%,20%)] p-2 shadow-lg">
+					<div
+						id="search-suggestions"
+						role="listbox"
+						aria-label="Location suggestions"
+						className="absolute top-[calc(100%+0.5rem)] z-20 w-full rounded-xl border border-[hsl(243,23%,30%)] bg-[hsl(243,27%,20%)] p-2 shadow-lg"
+					>
 						{searching ? (
-							<div className="flex items-center gap-2.5 px-2 py-2.5 text-base text-[hsl(0,0%,100%)]">
-								<img
-									src={iconLoading}
-									alt=""
-									aria-hidden
-									className="size-4 animate-spin"
-								/>
+							<div
+								role="status"
+								className="flex items-center gap-2.5 px-2 py-2.5 text-base text-[hsl(0,0%,100%)]"
+							>
+								<img src={iconLoading} alt="" aria-hidden className="size-4 animate-spin" />
 								Search in progress
 							</div>
 						) : results.length > 0 ? (
-							<ul>
-								{results.map((result) => (
-									<li key={result.id}>
-										<button
-											type="button"
-											onClick={() => pick(result)}
-											className="w-full rounded-lg px-2 py-2.5 text-left text-base text-[hsl(0,0%,100%)] transition-colors hover:bg-[hsl(243,23%,30%)]"
-										>
-											{locationLabel(result.name, result.country)}
-										</button>
-									</li>
-								))}
-							</ul>
+							results.map((result) => (
+								<button
+									key={result.id}
+									type="button"
+									role="option"
+									aria-selected={false}
+									onClick={() => pick(result)}
+									className="w-full rounded-lg px-2 py-2.5 text-left text-base text-[hsl(0,0%,100%)] transition-colors hover:bg-[hsl(243,23%,30%)] focus-visible:bg-[hsl(243,23%,30%)] focus-visible:outline-none"
+								>
+									{locationLabel(result.name, result.country)}
+								</button>
+							))
 						) : (
-							<p className="px-2 py-2.5 text-base text-[hsl(240,6%,70%)]">
+							<p role="status" className="px-2 py-2.5 text-base text-[hsl(240,6%,70%)]">
 								No results found
 							</p>
 						)}
@@ -153,7 +160,7 @@ export default function SearchBar({ onSelect }: SearchBarProps) {
 				className={cn(
 					"rounded-xl bg-[hsl(233,67%,56%)] px-6 py-3.5 text-base font-medium text-[hsl(0,0%,100%)]",
 					"transition-colors hover:bg-[hsl(248,70%,36%)]",
-					"focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(248,70%,36%)]",
+					"focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(248,70%,36%)]"
 				)}
 			>
 				Search

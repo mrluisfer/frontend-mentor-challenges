@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { CircleDot } from "lucide-react";
 import BranchesCount from "./BranchesCount";
 import GitHubIcon from "./GitHubIcon";
@@ -30,16 +31,15 @@ export default function GitHubStarsButton() {
 			<Tooltip>
 				<TooltipTrigger
 					render={
-						<Button
-							className="group relative overflow-hidden bg-neutral-900 text-white shadow-sm transition-all duration-300 hover:bg-neutral-800 hover:shadow-md hover:shadow-amber-200/20 active:scale-95 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:shadow-amber-400/20"
-							render={
-								<a
-									href={repo.html_url}
-									target="_blank"
-									rel="noopener noreferrer"
-									aria-label={`Star ${repo.full_name} on GitHub`}
-								/>
-							}
+						<a
+							href={repo.html_url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={`Star ${repo.full_name} on GitHub`}
+							className={cn(
+								buttonVariants(),
+								"group relative overflow-hidden bg-neutral-900 text-white shadow-sm transition-all duration-300 hover:bg-neutral-800 hover:shadow-md hover:shadow-amber-200/20 active:scale-95 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:shadow-amber-400/20"
+							)}
 						/>
 					}
 				>
@@ -49,7 +49,7 @@ export default function GitHubStarsButton() {
 					</div>
 					<span className="flex items-baseline gap-2">
 						<span className="font-medium">Stars</span>
-						<span className="tabular-nums text-xs text-neutral-400 transition-colors group-hover:text-amber-400 dark:text-neutral-500">
+						<span className="text-xs text-neutral-400 tabular-nums transition-colors group-hover:text-amber-400 dark:text-neutral-500">
 							{formatStars(repo.stargazers_count)}
 						</span>
 					</span>

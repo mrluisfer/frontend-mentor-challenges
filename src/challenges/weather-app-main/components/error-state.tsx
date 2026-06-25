@@ -7,14 +7,11 @@ type ErrorStateProps = {
 
 export default function ErrorState({ onRetry }: ErrorStateProps) {
 	return (
-		<div className="flex flex-col items-center justify-center gap-4 py-24 text-center">
+		<div role="alert" className="flex flex-col items-center justify-center gap-4 py-24 text-center">
 			<img src={iconError} alt="" aria-hidden className="size-12" />
-			<h2 className="text-4xl font-bold text-[hsl(0,0%,100%)]">
-				Something went wrong
-			</h2>
+			<h2 className="text-4xl font-bold text-[hsl(0,0%,100%)]">Something went wrong</h2>
 			<p className="max-w-md text-base text-[hsl(240,6%,70%)]">
-				We couldn&apos;t connect to the server (API error). Please try again in a
-				few moments.
+				We couldn&apos;t connect to the server (API error). Please try again in a few moments.
 			</p>
 			<button
 				type="button"

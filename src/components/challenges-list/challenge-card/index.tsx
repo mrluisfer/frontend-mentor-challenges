@@ -16,15 +16,11 @@ export default function ChallengeCard({
 		<a
 			href={challenge.route ?? ""}
 			key={index}
-			className="scale transition animate-in hover:scale-105"
+			className="scale animate-in transition hover:scale-105"
 		>
 			<Container>
 				{challenge?.image ? (
-					<ChallengeCardThumbnail
-						src={challenge.image || ""}
-						title={challenge.title}
-						description={challenge.description}
-					/>
+					<ChallengeCardThumbnail src={challenge.image || ""} title={challenge.title} />
 				) : null}
 				<div className="flex flex-col gap-4 p-4">
 					<ChallengeCardHeader title={challenge.title} level={challenge.level} />

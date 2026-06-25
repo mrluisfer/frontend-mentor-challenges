@@ -8,10 +8,7 @@ type WeatherHeaderProps = {
 	onUnitsChange: (units: Units) => void;
 };
 
-export default function WeatherHeader({
-	units,
-	onUnitsChange,
-}: WeatherHeaderProps) {
+export default function WeatherHeader({ units, onUnitsChange }: WeatherHeaderProps) {
 	return (
 		<header className="flex items-center justify-between">
 			<img src={logo} alt="Weather Now" className="h-8" />

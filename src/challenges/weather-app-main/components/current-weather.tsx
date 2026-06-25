@@ -10,15 +10,15 @@ type CurrentWeatherProps = {
 	loading: boolean;
 };
 
-export default function CurrentWeather({
-	location,
-	current,
-	loading,
-}: CurrentWeatherProps) {
+export default function CurrentWeather({ location, current, loading }: CurrentWeatherProps) {
 	if (loading) {
 		return (
-			<div className="flex min-h-[286px] flex-col items-center justify-center gap-3 rounded-2xl bg-[hsl(243,27%,20%)]">
-				<div className="flex gap-1.5">
+			<div
+				role="status"
+				aria-live="polite"
+				className="flex min-h-[286px] flex-col items-center justify-center gap-3 rounded-2xl bg-[hsl(243,27%,20%)]"
+			>
+				<div className="flex gap-1.5" aria-hidden>
 					<span className="size-2 animate-pulse rounded-full bg-[hsl(240,6%,70%)] [animation-delay:0ms]" />
 					<span className="size-2 animate-pulse rounded-full bg-[hsl(240,6%,70%)] [animation-delay:150ms]" />
 					<span className="size-2 animate-pulse rounded-full bg-[hsl(240,6%,70%)] [animation-delay:300ms]" />

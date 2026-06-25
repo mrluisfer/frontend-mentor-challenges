@@ -1,8 +1,4 @@
-import {
-	formatTemp,
-	precipitationUnitLabel,
-	windUnitLabel,
-} from "../lib/format";
+import { formatTemp, precipitationUnitLabel, windUnitLabel } from "../lib/format";
 import type { Units, WeatherData } from "../lib/types";
 
 type WeatherMetricsProps = {
@@ -11,16 +7,11 @@ type WeatherMetricsProps = {
 	loading: boolean;
 };
 
-export default function WeatherMetrics({
-	current,
-	units,
-	loading,
-}: WeatherMetricsProps) {
+export default function WeatherMetrics({ current, units, loading }: WeatherMetricsProps) {
 	const metrics = [
 		{
 			label: "Feels Like",
-			value:
-				current && !loading ? formatTemp(current.apparentTemperature) : "–",
+			value: current && !loading ? formatTemp(current.apparentTemperature) : "–",
 		},
 		{
 			label: "Humidity",
@@ -50,9 +41,7 @@ export default function WeatherMetrics({
 					className="rounded-xl border border-[hsl(243,23%,30%)] bg-[hsl(243,27%,20%)] p-5"
 				>
 					<p className="text-base text-[hsl(240,6%,70%)]">{metric.label}</p>
-					<p className="mt-6 text-3xl font-light text-[hsl(0,0%,100%)]">
-						{metric.value}
-					</p>
+					<p className="mt-6 text-3xl font-light text-[hsl(0,0%,100%)]">{metric.value}</p>
 				</div>
 			))}
 		</div>

@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 type ThumbnailProps = {
 	src: string;
 	title: string;
-	description: string;
 };
 
-export default function ChallengeCardThumbnail({ src, title, description }: ThumbnailProps) {
+export default function ChallengeCardThumbnail({ src, title }: ThumbnailProps) {
 	const [imgRatio, setImgRatio] = useState(1);
 
 	useEffect(() => {
@@ -24,9 +23,7 @@ export default function ChallengeCardThumbnail({ src, title, description }: Thum
 				<img
 					src={src}
 					alt={title}
-					aria-description={description}
-					aria-label={title}
-					className="w-full object-cover rounded-md motion-reduce:hidden"
+					className="w-full rounded-md object-cover motion-reduce:hidden"
 					loading="lazy"
 					draggable="false"
 				/>
