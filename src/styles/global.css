@@ -51,6 +51,7 @@
 	--radius-xl: calc(var(--radius) + 4px);
 	--font-sans: var(--font-sans);
 	--font-heading: var(--font-heading);
+	--font-outfit: "Outfit", sans-serif;
 }
 
 :root {

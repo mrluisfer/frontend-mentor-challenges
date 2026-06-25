@@ -17,5 +17,5 @@ const { slug } = Astro.params;
 
 <ChallengeLayout title={`JSChallenge | ${slug}`}>
 	<ChallengeHeader challengeName={slug} />
-	<ChallengeRender client:only challengeName={slug} />
+	<ChallengeRender client:only="react" challengeName={slug} />
 </ChallengeLayout>

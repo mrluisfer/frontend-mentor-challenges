@@ -16,8 +16,12 @@ export default function Filter() {
 	const handleSubmitFilter = (event: SubmitEvent) => {
 		event.preventDefault();
 		event.stopPropagation();
-		if (!selectedTags.length) return;
-		filterChallengesByName(selectedTags);
+		// Applying with no tags selected shows all challenges again.
+		if (!selectedTags.length) {
+			resetFilter();
+		} else {
+			filterChallengesByName(selectedTags);
+		}
 		setOpen(false);
 	};
 
@@ -58,9 +62,7 @@ export default function Filter() {
 										<Button variant={"ghost"} onClick={handleClickClearFilter}>
 											Clear
 										</Button>
-										<Button type="submit" disabled={!selectedTags.length}>
-											Apply
-										</Button>
+										<Button type="submit">Apply</Button>
 									</div>
 								</form>
 							</div>

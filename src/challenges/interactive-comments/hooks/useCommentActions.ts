@@ -65,10 +65,12 @@ export const useCommentActions = ({ comment, as = "comment" }: UseCommentActions
 			replyingTo: comment.user.username,
 		};
 		const updatedComments = comments?.map((c) => {
-			const isTargetThread = c.id === comment.id || c.replies?.some((reply) => reply.id === comment.id);
+			const isTargetThread =
+				c.id === comment.id || c.replies?.some((reply) => reply.id === comment.id);
 
 			if (isTargetThread) {
-				return { ...c, replies: [newReply, ...(c.replies ?? [])] };
+				// Append so the newest reply shows at the bottom of the thread.
+				return { ...c, replies: [...(c.replies ?? []), newReply] };
 			}
 			return c;
 		});
